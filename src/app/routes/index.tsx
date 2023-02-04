@@ -1,6 +1,6 @@
-import { Button } from "@mui/material";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { useAppThemeContext } from "../../shared/contexts/ThemeProvider";
+import { Button } from '@mui/material';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useAppThemeContext } from '../../shared/contexts/ThemeProvider';
 
 export default function AppRoutes() {
   const { toogleTheme } = useAppThemeContext();
@@ -14,7 +14,7 @@ export default function AppRoutes() {
           </Button>
         }
       />
-      <Route path="*" element={<Navigate to={"/pagina-principal"} />} />
+      <Route path="*" element={<Navigate to={'/pagina-principal'} />} />
     </Routes>
   );
 }
