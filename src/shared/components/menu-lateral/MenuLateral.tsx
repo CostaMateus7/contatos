@@ -11,15 +11,46 @@ import {
   useTheme,
 } from '@mui/material';
 import { Box } from '@mui/system';
+import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useAppDrawerContext } from '../../contexts';
 interface Props {
   children: React.ReactNode;
 }
+interface IListItemLinkProps {
+  icon: string;
+  label: string;
+  to: string;
+  onClick: (() => void) | undefined;
+}
+
+const ListItemLink: React.FC<IListItemLinkProps> = ({
+  icon,
+  label,
+  to,
+  onClick,
+}) => {
+  const navigate = useNavigate();
+  const resolvePath = useResolvedPath(to);
+  const macth = useMatch({ path: resolvePath.pathname, end: false });
+  const handleClick = () => {
+    navigate(to);
+    onClick?.();
+  };
+  return (
+    <ListItemButton selected={!!macth} onClick={handleClick}>
+      <ListItemIcon>
+        <Icon>{icon}</Icon>
+      </ListItemIcon>
+      <ListItemText primary={label} />
+    </ListItemButton>
+  );
+};
 
 export const MenuLateral: React.FC<Props> = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const { isDrawerOpen, toogleDrawerOpen } = useAppDrawerContext();
+  const { isDrawerOpen, toogleDrawerOpen, drawerOptions } =
+    useAppDrawerContext();
   return (
     <>
       <Drawer
@@ -48,12 +79,15 @@ export const MenuLateral: React.FC<Props> = ({ children }) => {
         <Divider />
         <Box flex={1}>
           <List component={'nav'}>
-            <ListItemButton>
-              <ListItemIcon>
-                <Icon>home</Icon>
-              </ListItemIcon>
-              <ListItemText primary={'Página Inicial'} />
-            </ListItemButton>
+            {drawerOptions.map((drawerOption) => (
+              <ListItemLink
+                key={drawerOption.path}
+                icon={drawerOption.icon}
+                label={drawerOption.label}
+                to={drawerOption.path}
+                onClick={smDown ? toogleDrawerOpen : undefined}
+              />
+            ))}
           </List>
         </Box>
       </Drawer>

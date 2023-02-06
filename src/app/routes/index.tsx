@@ -1,4 +1,5 @@
 import { Button } from '@mui/material';
+import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import {
   useAppThemeContext,
@@ -7,7 +8,22 @@ import {
 
 export default function AppRoutes() {
   const { toogleTheme } = useAppThemeContext();
-  const { toogleDrawerOpen } = useAppDrawerContext();
+  const { toogleDrawerOpen, setDrawerOptions } = useAppDrawerContext();
+  useEffect(() => {
+    setDrawerOptions([
+      {
+        icon: 'home',
+        path: 'pagina-inicial',
+        label: 'Página Inicial',
+      },
+      {
+        icon: 'stars',
+        path: 'cidades',
+        label: 'cidades',
+      },
+    ]);
+  }, []);
+
   return (
     <Routes>
       <Route
