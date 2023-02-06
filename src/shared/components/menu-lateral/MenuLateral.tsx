@@ -7,18 +7,26 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import { Box } from '@mui/system';
+import { useAppDrawerContext } from '../../contexts';
 interface Props {
   children: React.ReactNode;
 }
 
 export const MenuLateral: React.FC<Props> = ({ children }) => {
   const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const { isDrawerOpen, toogleDrawerOpen } = useAppDrawerContext();
   return (
     <>
-      <Drawer variant="permanent">
+      <Drawer
+        open={isDrawerOpen}
+        variant={smDown ? 'temporary' : 'permanent'}
+        onClose={toogleDrawerOpen}
+      >
         <Box
           width={theme.spacing(28)}
           display={'flex'}
@@ -49,7 +57,7 @@ export const MenuLateral: React.FC<Props> = ({ children }) => {
           </List>
         </Box>
       </Drawer>
-      <Box height={'100vh'} marginLeft={theme.spacing(28)}>
+      <Box height={'100vh'} marginLeft={smDown ? 0 : theme.spacing(28)}>
         {children}
       </Box>
     </>
