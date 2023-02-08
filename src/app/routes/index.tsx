@@ -12,11 +12,6 @@ export default function AppRoutes() {
         path: 'pagina-inicial',
         label: 'Página Inicial',
       },
-      {
-        icon: 'stars',
-        path: 'cidades',
-        label: 'cidades',
-      },
     ]);
   }, []);
 

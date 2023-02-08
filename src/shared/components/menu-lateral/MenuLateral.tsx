@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
-import { useAppDrawerContext } from '../../contexts';
+import { useAppDrawerContext, useAppThemeContext } from '../../contexts';
 interface Props {
   children: React.ReactNode;
 }
@@ -51,6 +51,7 @@ export const MenuLateral: React.FC<Props> = ({ children }) => {
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const { isDrawerOpen, toogleDrawerOpen, drawerOptions } =
     useAppDrawerContext();
+  const { toogleTheme } = useAppThemeContext();
   return (
     <>
       <Drawer
@@ -88,6 +89,16 @@ export const MenuLateral: React.FC<Props> = ({ children }) => {
                 onClick={smDown ? toogleDrawerOpen : undefined}
               />
             ))}
+          </List>
+        </Box>
+        <Box>
+          <List component={'nav'}>
+            <ListItemButton onClick={toogleTheme}>
+              <ListItemIcon>
+                <Icon>dark_mode</Icon>
+              </ListItemIcon>
+              <ListItemText primary={'Toogle Theme'} />
+            </ListItemButton>
           </List>
         </Box>
       </Drawer>
