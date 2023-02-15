@@ -1,4 +1,11 @@
-import { Button, Divider, Icon, Paper, useTheme } from '@mui/material';
+import {
+  Button,
+  Divider,
+  Icon,
+  Paper,
+  Skeleton,
+  useTheme,
+} from '@mui/material';
 import { Box } from '@mui/system';
 
 interface IFerramentasDeDetalheProps {
@@ -6,9 +13,15 @@ interface IFerramentasDeDetalheProps {
 
   showNewButton?: boolean;
   showBackButton?: boolean;
-  showDeleteButoon?: boolean;
+  showDeleteButton?: boolean;
   showSaveButton?: boolean;
   showSaveAndCloseButton?: boolean;
+
+  showNewButtonIsLoading?: boolean;
+  showBackButtonIsLoading?: boolean;
+  showDeleteButoonIsLoading?: boolean;
+  showSaveButtonIsLoading?: boolean;
+  showSaveAndCloseButtonIsLoading?: boolean;
 
   whenClickNew?: () => void;
   whenClickBack?: () => void;
@@ -21,9 +34,15 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
   textNewButton = 'Novo',
   showNewButton = true,
   showBackButton = true,
-  showDeleteButoon: showDeleteButton = true,
+  showDeleteButton = true,
   showSaveButton = true,
   showSaveAndCloseButton = false,
+
+  showNewButtonIsLoading = false,
+  showBackButtonIsLoading = false,
+  showDeleteButoonIsLoading = false,
+  showSaveButtonIsLoading = false,
+  showSaveAndCloseButtonIsLoading = false,
 
   whenClickNew,
   whenClickBack,
@@ -44,7 +63,7 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
       marginX={1}
       padding={1}
     >
-      {showSaveButton && (
+      {showSaveButton && !showSaveButtonIsLoading && (
         <Button
           color="primary"
           disableElevation
@@ -55,8 +74,9 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
           Salvar
         </Button>
       )}
+      {showSaveButtonIsLoading && <Skeleton width={110} height={67} />}
 
-      {showSaveAndCloseButton && (
+      {showSaveAndCloseButton && !showSaveAndCloseButtonIsLoading && (
         <Button
           color="primary"
           disableElevation
@@ -67,7 +87,8 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
           Salvar e voltar
         </Button>
       )}
-      {showDeleteButton && (
+      {showSaveAndCloseButtonIsLoading && <Skeleton width={180} height={67} />}
+      {showDeleteButton && !showDeleteButoonIsLoading && (
         <Button
           color="primary"
           disableElevation
@@ -78,7 +99,9 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
           Apagar
         </Button>
       )}
-      {showNewButton && (
+      {showDeleteButoonIsLoading && <Skeleton width={110} height={67} />}
+
+      {showNewButton && !showNewButtonIsLoading && (
         <Button
           color="primary"
           disableElevation
@@ -89,8 +112,10 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
           {textNewButton}
         </Button>
       )}
+      {showNewButtonIsLoading && <Skeleton width={110} height={67} />}
+
       <Divider variant="middle" orientation="vertical" />
-      {showBackButton && (
+      {showBackButton && !showBackButtonIsLoading && (
         <Button
           color="primary"
           disableElevation
@@ -101,6 +126,7 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
           Voltar
         </Button>
       )}
+      {showBackButtonIsLoading && <Skeleton width={110} height={67} />}
     </Box>
   );
 };
