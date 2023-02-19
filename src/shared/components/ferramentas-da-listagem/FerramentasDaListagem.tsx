@@ -7,6 +7,7 @@ import {
   TextField,
   useTheme,
 } from '@mui/material';
+import { Environment } from '../../environment';
 interface IFerramentasDaListagem {
   textSearch?: string;
   showInputSearch?: boolean;
@@ -41,7 +42,7 @@ export const FerramentasDaListagem: React.FC<IFerramentasDaListagem> = ({
       {showInputSearch && (
         <TextField
           size="small"
-          placeholder="Pesquisar..."
+          placeholder={Environment.SEARCH_INPUT}
           value={textSearch}
           onChange={(event) => whenChangingSearchText?.(event.target.value)}
           InputProps={{
